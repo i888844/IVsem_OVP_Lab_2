@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab._2
 {
-    internal class Classes
+    public class Classes
     {
         public class Medicine
         {
@@ -16,6 +16,15 @@ namespace Lab._2
             public double Price { get; set; }
             public string ApplicationType { get; set; }
             public string ReleaseForm { get; set; }
+        }
+
+        public class MedicineView
+        {
+            public string Name { get; set; }
+            public string ExpiryDate { get; set; }
+            public string Cost { get; set; }
+            public string Usage { get; set; }
+            public string Form { get; set; }
         }
 
         public class MedicineViewModel
@@ -52,7 +61,6 @@ namespace Lab._2
                 return medicines.Values.ToList();
             }
 
-
             public List<Medicine> GetExpiredMedicines()
             {
                 var expiredMedicines = medicines.Values
@@ -66,7 +74,7 @@ namespace Lab._2
 
                 return expiredMedicines;
             }
-            
+
             public void LoadFromFile(string filename)
             {
                 var lines = File.ReadAllLines(filename);
@@ -90,6 +98,18 @@ namespace Lab._2
                 var lines = medicines.Values.Select(m =>
                     $"Название:{m.Name},СрокГодности:{m.ExpiryDate:yyyy-MM-dd},Цена:{m.Price},ВидПрименения:{m.ApplicationType},ФормаВыпуска:{m.ReleaseForm}");
                 File.WriteAllLines(filename, lines);
+            }
+
+            public MedicineView ToView(Medicine medicine)
+            {
+                return new MedicineView
+                {
+                    Name = medicine.Name,
+                    ExpiryDate = medicine.ExpiryDate.ToString("yyyy-MM-dd"),
+                    Cost = medicine.Price.ToString(),
+                    Usage = medicine.ApplicationType,
+                    Form = medicine.ReleaseForm
+                };
             }
         }
     }

@@ -41,14 +41,14 @@ namespace Lab._2
                 var releaseForm = form.ReleaseForm;
                 var maxPrice = form.MaxPrice;
                 var filteredMedicines = viewModel.GetMedicinesByReleaseFormAndPrice(releaseForm, maxPrice);
-                UpdateDataGridView(filteredMedicines);
+                UpdateDataGridView(filteredMedicines.Select(m => viewModel.ToView(m)).ToList());
             }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             var sortedMedicines = viewModel.GetMedicines().OrderBy(m => m.ExpiryDate).ToList();
-            UpdateDataGridView(sortedMedicines);
+            UpdateDataGridView(sortedMedicines.Select(m => viewModel.ToView(m)).ToList());
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -85,7 +85,7 @@ namespace Lab._2
             }
         }
 
-        private void UpdateDataGridView(List<Medicine> medicines = null)
+        private void UpdateDataGridView(List<MedicineView> medicines = null)
         {
             dataGridView1.Rows.Clear();
             dataGridView1.Columns.Clear();
@@ -98,12 +98,12 @@ namespace Lab._2
 
             if (medicines == null)
             {
-                medicines = viewModel.GetMedicines();
+                medicines = viewModel.GetMedicines().Select(m => viewModel.ToView(m)).ToList();
             }
 
             foreach (var medicine in medicines)
             {
-                dataGridView1.Rows.Add(medicine.Name, medicine.ExpiryDate, medicine.Price, medicine.ApplicationType, medicine.ReleaseForm);
+                dataGridView1.Rows.Add(medicine.Name, medicine.ExpiryDate, medicine.Cost, medicine.Usage, medicine.Form);
             }
         }
     }
