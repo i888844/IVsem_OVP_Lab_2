@@ -66,7 +66,8 @@ namespace Lab._2
 
                 return expiredMedicines;
             }
-            
+
+
             public void LoadFromFile(string filename)
             {
                 var lines = File.ReadAllLines(filename);

@@ -63,7 +63,7 @@ namespace Lab._2
                 sw.Flush();
             }
         }
-        
+
         private void button5_Click(object sender, EventArgs e)
         {
             var openFileDialog = new OpenFileDialog();

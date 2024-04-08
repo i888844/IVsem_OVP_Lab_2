@@ -16,7 +16,7 @@ namespace Lab._2
     {
         private MedicineViewModel viewModel;
 
-        public FilterForm(MedicineViewModel viewModel)
+        internal FilterForm(MedicineViewModel viewModel)
         {
             InitializeComponent();
             this.viewModel = viewModel; // сохраняем viewModel для дальнейшего использования
