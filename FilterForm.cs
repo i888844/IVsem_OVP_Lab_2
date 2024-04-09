@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Lab._2.Classes;
 
@@ -20,7 +12,7 @@ namespace Lab._2
         internal FilterForm(MedicineViewModel viewModel)
         {
             InitializeComponent();
-            this.viewModel = viewModel; // сохраняем viewModel для дальнейшего использования
+            this.viewModel = viewModel;
         }
 
         public string ReleaseForm { get; private set; }

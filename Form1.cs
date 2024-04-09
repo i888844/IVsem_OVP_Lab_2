@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Lab._2.Classes;
-using System.IO;
 
 namespace Lab._2
 {
     public partial class Form1 : Form
     {
         private MedicineViewModel viewModel;
+        private BindingSource bindingSource = new BindingSource();
 
         public Form1()
         {
             InitializeComponent();
             viewModel = new MedicineViewModel();
+            dataGridView1.DataSource = bindingSource;
+            UpdateDataGridView();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -87,24 +85,11 @@ namespace Lab._2
 
         private void UpdateDataGridView(List<MedicineView> medicines = null)
         {
-            dataGridView1.Rows.Clear();
-            dataGridView1.Columns.Clear();
-
-            dataGridView1.Columns.Add("Название", "Название");
-            dataGridView1.Columns.Add("СрокГодности", "Срок Годности");
-            dataGridView1.Columns.Add("Цена", "Цена");
-            dataGridView1.Columns.Add("ВидПрименения", "Вид Применения");
-            dataGridView1.Columns.Add("ФормаВыпуска", "Форма Выпуска");
-
             if (medicines == null)
             {
                 medicines = viewModel.GetMedicines().Select(m => viewModel.ToView(m)).ToList();
             }
-
-            foreach (var medicine in medicines)
-            {
-                dataGridView1.Rows.Add(medicine.Name, medicine.ExpiryDate, medicine.Cost, medicine.Usage, medicine.Form);
-            }
+            bindingSource.DataSource = medicines;
         }
     }
 }
